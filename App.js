@@ -1,63 +1,87 @@
-import {NavigationContainer} from "@react-navigation/native";
-import { createNativeStackNavigator} from "@react-navigation/native-stack"
+import React, { useCallback, useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StyleSheet, View } from 'react-native';
+import * as SplashScreen from 'expo-splash-screen';
+import BottomTabNavigation from './BottomTabNavigation';
+import Cart from './screens/Cart';
+import LoginScreen from './component/Registers/Login'; // Import your login screen component
+import Signup from './component/Registers/Signup';
 
+const Stack = createNativeStackNavigator();
 
- import React, { useCallback } from 'react';
-import {useFonts} from 'expo-font'
-import { StyleSheet} from 'react-native';
- import  * as splashScreen from "expo-splash-screen"
-import BottomTabNavigation from "./BottomTabNavigation";
-import { Cart } from "./screens";
- 
+export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-const Stack = createNativeStackNavigator()
-  export default function App() {
-  const [fontsLoaded] = useFonts({
-    regular: require("./assets/fonts/Poppins-Regular.ttf"),
-    ExtraBold: require("./assets/fonts/Poppins-ExtraBold.ttf"),
-    Light: require("./assets/fonts/Poppins-Light.ttf"),
-    medium: require("./assets/fonts/Poppins-Medium.ttf"),
-    Thin: require("./assets/fonts/Poppins-Thin.ttf"),
-    Semibold: require("./assets/fonts/Poppins-SemiBold.ttf"),
-  })
-
-  const onLayoutRootView = useCallback(async()=>{
-    if(fontsLoaded){
-      await splashScreen.hideAsync();
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+      // Simulate checking if the user is already logged in
+      const userIsLoggedIn = await checkIfUserIsLoggedIn(); // Your authentication logic here
+      setIsLoggedIn(userIsLoggedIn);
+      setIsLoading(false);
     }
-  },[fontsLoaded]);
+    prepare();
+  }, []);
 
-  if(!fontsLoaded){
-    return null
+  const checkIfUserIsLoggedIn = async () => {
+    // Implement your logic to check if the user is logged in
+    // For example, check if there's a token in AsyncStorage or a session in the backend
+    // Return true if logged in, false otherwise
+    // This is just a placeholder
+    return false;
+  };
+
+  const onLayoutRootView = useCallback(async () => {
+    await SplashScreen.hideAsync();
+  }, []);
+
+  if (isLoading) {
+    return null; // Render nothing until the loading state is resolved
   }
-  return (
-    <NavigationContainer>
-     <Stack.Navigator>
-      <Stack.Screen 
-      name="Bottom Navigation" 
-      component={BottomTabNavigation}
-      options={{headerShown:false}}
-      />
 
-<Stack.Screen 
-      name="Cart" 
-      component={Cart}
-      options={{headerShown:false}}
-      />
-     </Stack.Navigator>
-    </NavigationContainer>
-   );
+  return (
+    <View style={styles.container} onLayout={onLayoutRootView}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          {isLoggedIn ? (
+            <>
+              <Stack.Screen 
+                name="Bottom Navigation" 
+                component={BottomTabNavigation} 
+                options={{ headerShown: false }} 
+              />
+              <Stack.Screen 
+                name="Cart" 
+                component={Cart} 
+                options={{ headerShown: false }} 
+              />
+              
+            </>
+          ) : (
+            <>
+            <Stack.Screen 
+              name="Login" 
+              component={LoginScreen} 
+              options={{ headerShown: false }} 
+            />
+             <Stack.Screen 
+                name="Signup" 
+                component={Signup} 
+                options={{ headerShown: false }} 
+              />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
+  container: {
+    flex: 1,
     backgroundColor: '#fff',
-    alignItems: "center",
-    justifyContent: 'center',
   },
-  textStyle:{
-    fontWeight: "bold",
-    fontSize:20,
-   }
-})
+});

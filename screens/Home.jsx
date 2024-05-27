@@ -1,35 +1,34 @@
- import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import styles from './home.style'
- import { Ionicons ,Fontisto} from "@expo/vector-icons" 
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import { Welcome } from '../component'
-const Home = () => { 
+import React, { useState } from 'react';
+import { SafeAreaView, Text, TouchableOpacity, View, ScrollView } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+// import { Dropdown } from 'react-native-dropdown-picker';
+import styles from './home.style';
+import { Welcome } from '../component';
+
+const Home = () => {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: 'Single Men', value: 'singleMen' },
+    { label: 'Single Women', value: 'singleWomen' },
+  ]);
+
   return (
     <SafeAreaView>
       <View style={styles.appBarWrapper}>
         <View style={styles.appBar}>
-          <Ionicons  name="location-outline" size={24} />
-       <Text style={styles.location}>
-        Shanghai China
-       </Text>
-
-       <View style={{alignItems: "flex-end"}}>
-        <View style={styles.cartCount}>
-          <Text style={styles.cartNumber}>8</Text>
-        </View>
-        <TouchableOpacity>
-        <Fontisto name="shopping-bag" size={24} />
-        </TouchableOpacity>
-       </View>
-        </View>
+          <Text style={styles.location}>Potential Matches</Text>
+           <Text>Singles</Text>
+             <TouchableOpacity>
+              <Text>Subscribed</Text>
+            </TouchableOpacity>
+         </View>
       </View>
       <ScrollView>
-        <Welcome/>
+        <Welcome />
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Home
- 
+export default Home;
