@@ -7,6 +7,7 @@ import BottomTabNavigation from './BottomTabNavigation';
 import Cart from './screens/Cart';
 import LoginScreen from './component/Registers/Login'; // Import your login screen component
 import Signup from './component/Registers/Signup';
+import { Home } from './screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +59,7 @@ export default function App() {
                 options={{ headerShown: false }} 
               />
               
+              
             </>
           ) : (
             <>
@@ -69,6 +71,11 @@ export default function App() {
              <Stack.Screen 
                 name="Signup" 
                 component={Signup} 
+                options={{ headerShown: false }} 
+              />
+              <Stack.Screen 
+                name="Bottom Navigation" 
+                component={BottomTabNavigation} 
                 options={{ headerShown: false }} 
               />
             </>

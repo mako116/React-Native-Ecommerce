@@ -45,7 +45,9 @@ const LoginScreen = () => {
         value={password}
         onChangeText={text => setPassword(text)}
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      <TouchableOpacity style={styles.button} onPress={()=>(
+        navigation.navigate("Bottom Navigation")
+      )}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={handleCreateAccount}>
@@ -83,6 +85,7 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 40,
     borderColor: '#fff',
+    color:"#fff",
     borderBottomWidth:1,
     borderRadius: 5,
     paddingHorizontal: 10,

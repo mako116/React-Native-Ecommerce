@@ -31,7 +31,8 @@ const Signup = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
+      <View style={styles.container}>
       <View style={styles.signing}>
       <Text style={styles.title}>Get started</Text>
       <Text style={styles.para}>Sign up to get started finding your partner!</Text>
@@ -40,29 +41,34 @@ const Signup = () => {
         style={styles.input}
         placeholder="First Name"
         value={firstName}
+        placeholderTextColor="#ccc"
         onChangeText={text => setFirstName(text)}
       />
       <TextInput
         style={styles.input}
         placeholder="Last Name"
         value={lastName}
+        placeholderTextColor="#ccc"
         onChangeText={text => setLastName(text)}
       />
       <TextInput
         style={styles.input}
         placeholder="Email"
         value={email}
+        placeholderTextColor="#ccc"
         onChangeText={text => setEmail(text)}
       />
       <TextInput
         style={styles.input}
         placeholder="Username"
         value={username}
+        placeholderTextColor="#ccc"
         onChangeText={text => setUsername(text)}
       />
       <TextInput
         style={styles.input}
         placeholder="Password"
+        placeholderTextColor="#ccc"
         secureTextEntry
         value={password}
         onChangeText={text => setPassword(text)}
@@ -71,6 +77,7 @@ const Signup = () => {
         style={styles.input}
         placeholder="Confirm Password"
         secureTextEntry
+        placeholderTextColor="#ccc"
         value={confirmPassword}
         onChangeText={text => setConfirmPassword(text)}
       />
@@ -83,18 +90,23 @@ const Signup = () => {
         <Text >Already have an account? <Text style={styles.loginText}>Login</Text> </Text>
       </TouchableOpacity>
     </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    display:"flex",
+    margin:"auto",
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#CC42BD',
     marginHorizontal:20,
     marginVertical:80,
-    borderRadius:10
+    // width:"100px",
+    height:640,
+    // borderRadius:10
   },
   para:{
     color: '#fff',
@@ -111,6 +123,7 @@ const styles = StyleSheet.create({
   input: {
     width: '80%',
     height: 40,
+    color:"#fff",
     borderColor: '#fff',
     borderBottomWidth:1,
     borderRadius: 5,
